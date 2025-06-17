@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Neural Bypas</title>
+</head>
+<body>
+  <h1>Login to Neural Bypas</h1>
+
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="login()">Login</button>
+
+  <p id="error" style="color: red;"></p>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDGMZvHPCU5CiiE6oky8NTDNrTE7Q_4AHA",
+      authDomain: "neural-bypas.firebaseapp.com",
+      projectId: "neural-bypas",
+      storageBucket: "neural-bypas.firebasestorage.app",
+      messagingSenderId: "671615326046",
+      appId: "1:671615326046:web:016dbbcd66bfb3cac5a1cf",
+      measurementId: "G-6H9TMFFZVR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.login = function () {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("error");
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Login successful, redirect to admin
+          window.location.href = "admin.html";
+        })
+        .catch((error) => {
+          errorMsg.innerText = "Login failed. Please check credentials.";
+        });
+    };
+  </script>
+</body>
+</html>
